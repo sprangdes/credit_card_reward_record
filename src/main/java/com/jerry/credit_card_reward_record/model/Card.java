@@ -17,17 +17,17 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long card_id;
+    private long cardId;
 
     @ManyToOne
     @JsonBackReference
     private Bank bank;
 
-    private String card_name;
+    private String cardName;
 
     @OneToMany(mappedBy = "card")
     @JsonManagedReference
-    private Set<RewardWay> reward_ways;
+    private Set<RewardWay> rewardWays;
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "card_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -37,14 +37,14 @@ public class Card {
     public Card() {
     }
 
-    public Card(Bank bank, String card_name) {
+    public Card(Bank bank, String cardName) {
         this.bank = bank;
-        this.card_name = card_name;
+        this.cardName = cardName;
     }
 
-    public Card(long card_id, Bank bank, String card_name) {
-        this.card_id = card_id;
+    public Card(long cardId, Bank bank, String cardName) {
+        this.cardId = cardId;
         this.bank = bank;
-        this.card_name = card_name;
+        this.cardName = cardName;
     }
 }

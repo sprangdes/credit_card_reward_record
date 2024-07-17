@@ -37,6 +37,17 @@ public class BankController {
         }
     }
 
+    @GetMapping("/name/{bankName}")
+    public ResponseEntity<Bank> getBankByBankName(@PathVariable String bankName) {
+
+        Bank bank = bankService.findByBankName(bankName);
+        if(bank != null){
+            return ResponseEntity.ok(bank);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<Bank> createOrUpdateBank(@RequestBody Bank bank) {
 

@@ -15,9 +15,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long user_id;
+    private long userId;
 
-    private String user_name;
+    private String userName;
 
     private String password;
 
@@ -29,14 +29,14 @@ public class User {
     public User() {
     }
 
-    public User(String user_name, String password) {
-        this.user_name = user_name;
+    public User(String userName, String password) {
+        this.userName = userName;
         this.password = password;
     }
 
-    public User(long user_id, String user_name, String password) {
-        this.user_id = user_id;
-        this.user_name = user_name;
+    public User(long userId, String userName, String password) {
+        this.userId = userId;
+        this.userName = userName;
         this.password = password;
     }
 }

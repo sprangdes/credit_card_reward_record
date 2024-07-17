@@ -15,24 +15,24 @@ public class Consumption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long consumption_id;
+    private long consumptionId;
 
-    private String consumption_name;
+    private String consumptionName;
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "consumption_id"), inverseJoinColumns = @JoinColumn(name = "reward_way_id"))
     @JsonIgnoreProperties("consumptions")
-    private Set<RewardWay> reward_ways;
+    private Set<RewardWay> rewardWays;
 
     public Consumption() {
     }
 
-    public Consumption(long consumption_id, String consumption_name) {
-        this.consumption_id = consumption_id;
-        this.consumption_name = consumption_name;
+    public Consumption(long consumptionId, String consumptionName) {
+        this.consumptionId = consumptionId;
+        this.consumptionName = consumptionName;
     }
 
-    public Consumption(String consumption_name) {
-        this.consumption_name = consumption_name;
+    public Consumption(String consumptionName) {
+        this.consumptionName = consumptionName;
     }
 }

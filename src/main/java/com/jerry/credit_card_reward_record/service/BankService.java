@@ -18,6 +18,11 @@ public class BankService {
         return bankRepository.findById(bankId).orElse(null);
     }
 
+    public Bank findByBankName(String bankName) {
+
+        return bankRepository.findByBankName(bankName).orElse(null);
+    }
+
     public List<Bank> findAllBanks() {
 
         return bankRepository.findAll();

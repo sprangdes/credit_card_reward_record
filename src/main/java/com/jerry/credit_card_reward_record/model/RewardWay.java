@@ -16,13 +16,13 @@ public class RewardWay {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long reward_way_id;
+    private long rewardWayId;
 
-    private String reward_way_name;
+    private String rewardWayName;
 
-    private int reward_limit;
+    private int rewardLimit;
 
-    private float reward_rate;
+    private float rewardRate;
 
     @ManyToOne
     @JsonBackReference
@@ -36,16 +36,16 @@ public class RewardWay {
     public RewardWay() {
     }
 
-    public RewardWay(long reward_way_id, String reward_way_name, int reward_limit, float reward_rate) {
-        this.reward_way_id = reward_way_id;
-        this.reward_way_name = reward_way_name;
-        this.reward_limit = reward_limit;
-        this.reward_rate = reward_rate;
+    public RewardWay(long rewardWayId, String rewardWayName, int rewardLimit, float rewardRate) {
+        this.rewardWayId = rewardWayId;
+        this.rewardWayName = rewardWayName;
+        this.rewardLimit = rewardLimit;
+        this.rewardRate = rewardRate;
     }
 
-    public RewardWay(String reward_way_name, int reward_limit, float reward_rate) {
-        this.reward_way_name = reward_way_name;
-        this.reward_limit = reward_limit;
-        this.reward_rate = reward_rate;
+    public RewardWay(String rewardWayName, int rewardLimit, float rewardRate) {
+        this.rewardWayName = rewardWayName;
+        this.rewardLimit = rewardLimit;
+        this.rewardRate = rewardRate;
     }
 }

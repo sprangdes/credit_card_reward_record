@@ -63,6 +63,17 @@ public class UserController {
        }
     }
 
+    @PutMapping("/{userId}/card/{cardId}")
+    public ResponseEntity<User> addCardToUser(@PathVariable long userId, @PathVariable long cardId) {
+
+        boolean result = userService.addCardToUser(userId, cardId);
+        if(result){
+            return ResponseEntity.ok().body(userService.findUserById(userId));
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUserById(@PathVariable long userId) {
 

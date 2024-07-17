@@ -16,7 +16,7 @@ public class ConsumptionController {
     @Autowired
     private ConsumptionService consumptionService;
 
-    @GetMapping("/{consumptionsId}")
+    @GetMapping("/{consumptionId}")
     public ResponseEntity<Consumption> getConsumptionById(@PathVariable long consumptionId) {
 
         Consumption consumption = consumptionService.findConsumptionById(consumptionId);

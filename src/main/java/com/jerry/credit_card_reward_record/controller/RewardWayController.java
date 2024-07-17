@@ -38,6 +38,28 @@ public class RewardWayController {
         }
     }
 
+    @GetMapping("/name/{rewardWayName}")
+    public ResponseEntity<RewardWay> getRewardWayByRewardWayName(@PathVariable String rewardWayName) {
+
+        RewardWay rewardWay = rewardWayService.findByRewardWayName(rewardWayName);
+        if(rewardWay != null) {
+            return ResponseEntity.ok().body(rewardWay);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/card/{cardId}")
+    public ResponseEntity<List<RewardWay>> getRewardWaysByCard(@PathVariable long cardId) {
+
+        List<RewardWay> rewardWays = rewardWayService.findByCard(cardId);
+        if(!rewardWays.isEmpty()) {
+            return ResponseEntity.ok(rewardWays);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<RewardWay> createOrUpdateRewardWay(@RequestBody RewardWayDTO rewardWayDTO) {
 
@@ -64,12 +86,34 @@ public class RewardWayController {
         }
     }
 
+    @PutMapping("/{rewardWayId}/consumption/{consumptionId}")
+    public ResponseEntity<RewardWay> addConsumptionToRewardWay(@PathVariable long rewardWayId, @PathVariable long consumptionId) {
+
+        boolean result = rewardWayService.addConsumptionToRewardWay(rewardWayId, consumptionId);
+        if(result){
+            return ResponseEntity.ok().body(rewardWayService.findRewardWayById(rewardWayId));
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{rewardWayId}")
     public ResponseEntity<String> deleteRewardWayById(@PathVariable long rewardWayId) {
 
         boolean result = rewardWayService.deleteRewardWay(rewardWayId);
         if(result){
             return ResponseEntity.ok("RewardWay deleted successfully");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{rewardWayId}/consumption/{consumptionId}")
+    public ResponseEntity<String> deleteConsumptionInRewardWay(@PathVariable long rewardWayId, @PathVariable long consumptionId) {
+
+        boolean result = rewardWayService.deleteConsumptionInRewardWay(rewardWayId, consumptionId);
+        if(result){
+            return ResponseEntity.ok("Consumption in Reward Way deleted successfully");
         }else{
             return ResponseEntity.notFound().build();
         }

@@ -15,9 +15,9 @@ public class Bank {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long bank_id;
+    private long bankId;
 
-    private String bank_name;
+    private String bankName;
 
     @OneToMany(mappedBy = "bank")
     @JsonManagedReference
@@ -26,8 +26,8 @@ public class Bank {
     public Bank() {
     }
 
-    public Bank(long bank_id, String bank_name) {
-        this.bank_id = bank_id;
-        this.bank_name = bank_name;
+    public Bank(long bankId, String bankName) {
+        this.bankId = bankId;
+        this.bankName = bankName;
     }
 }

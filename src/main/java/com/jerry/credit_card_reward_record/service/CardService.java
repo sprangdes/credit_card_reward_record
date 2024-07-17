@@ -2,11 +2,15 @@ package com.jerry.credit_card_reward_record.service;
 
 import com.jerry.credit_card_reward_record.model.Bank;
 import com.jerry.credit_card_reward_record.model.Card;
+import com.jerry.credit_card_reward_record.model.RewardWay;
+import com.jerry.credit_card_reward_record.repository.BankRepository;
 import com.jerry.credit_card_reward_record.repository.CardRepository;
+import com.jerry.credit_card_reward_record.repository.RewardWayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CardService {
@@ -14,22 +18,42 @@ public class CardService {
     @Autowired
     private CardRepository cardRepository;
 
-    public Card findCardById(long cardId){
+    @Autowired
+    private BankRepository bankRepository;
+
+    @Autowired
+    private RewardWayRepository rewardWayRepository;
+
+    public Card findCardById(long cardId) {
 
         return cardRepository.findById(cardId).orElse(null);
     }
 
-    public List<Card> findAllCards(){
+    public Card findByCardName(String cardName) {
+
+        return cardRepository.findByCardName(cardName).orElse(null);
+    }
+
+    public List<Card> findAllCards() {
 
         return cardRepository.findAll();
     }
 
-    public Card saveCard(Card card){
+    public List<Card> findByBank(long bankId) {
+
+        Bank bank = bankRepository.findById(bankId).orElse(null);
+        if(bank != null) {
+            return cardRepository.findByBank(bank);
+        }
+        return null;
+    }
+
+    public Card saveCard(Card card) {
 
         return cardRepository.save(card);
     }
 
-    public Boolean deleteCardById(long cardId){
+    public Boolean deleteCardById(long cardId) {
 
         boolean result = false;
         Card card = findCardById(cardId);
@@ -38,5 +62,40 @@ public class CardService {
             result = true;
         }
         return result;
+    }
+
+    public Boolean addRewardWayToCard(long cardId, long rewardWayId) {
+
+        boolean result = false;
+        Card card = findCardById(cardId);
+        RewardWay rewardWay = rewardWayRepository.findById(rewardWayId).orElse(null);
+        Set<RewardWay> rewardWays = null;
+        if(card != null && rewardWay != null) {
+            rewardWays = card.getRewardWays();
+            rewardWays.add(rewardWay);
+            card.setRewardWays(rewardWays);
+            cardRepository.save(card);
+            result = true;
+            return result;
+        }else{
+            return result;
+        }
+    }
+
+    public Boolean deleteRewardWayInCard(long cardId, long rewardWayId) {
+
+        boolean result = false;
+        Card card = findCardById(cardId);
+        RewardWay rewardWay = rewardWayRepository.findById(rewardWayId).orElse(null);
+        Set<RewardWay> rewardWays = card.getRewardWays();
+        if(rewardWay != null && rewardWays.contains(rewardWay)) {
+            rewardWays.remove(rewardWay);
+            card.setRewardWays(rewardWays);
+            cardRepository.save(card);
+            result = true;
+            return result;
+        }else{
+            return result;
+        }
     }
 }

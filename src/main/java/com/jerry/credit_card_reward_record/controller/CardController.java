@@ -17,7 +17,7 @@ public class CardController {
     private CardService cardService;
 
     @GetMapping("/{cardId}")
-    public ResponseEntity<Card> getCardById(@PathVariable long cardId){
+    public ResponseEntity<Card> getCardById(@PathVariable long cardId) {
 
 
         Card card = cardService.findCardById(cardId);
@@ -29,7 +29,7 @@ public class CardController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Card>> getAllCards(){
+    public ResponseEntity<List<Card>> getAllCards() {
 
         List<Card> cards = cardService.findAllCards();
         if(!cards.isEmpty()){
@@ -39,8 +39,30 @@ public class CardController {
         }
     }
 
+    @GetMapping("/name/{cardName}")
+    public ResponseEntity<Card> getCardByCardName(@PathVariable String cardName) {
+
+        Card card = cardService.findByCardName(cardName);
+        if(card != null){
+            return ResponseEntity.ok().body(card);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/bank/{bankId}")
+    public ResponseEntity<List<Card>> getCardsByBank(@PathVariable long bankId) {
+
+        List<Card> cards = cardService.findByBank(bankId);
+        if(!cards.isEmpty()){
+            return ResponseEntity.ok().body(cards);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("")
-    public ResponseEntity<Card> createOrUpdateCard(@RequestBody CardDTO cardDTO){
+    public ResponseEntity<Card> createOrUpdateCard(@RequestBody CardDTO cardDTO) {
 
 //        requestBody
 //        有card_id執行更新，沒card_id執行新增
@@ -66,12 +88,34 @@ public class CardController {
         }
     }
 
+    @PutMapping("/{cardId}/reward-way/{rewardWayId}")
+    public ResponseEntity<Card> addRewardWayToCard(@PathVariable long cardId, @PathVariable long rewardWayId) {
+
+        boolean result = cardService.addRewardWayToCard(cardId, rewardWayId);
+        if(result){
+            return ResponseEntity.ok().body(cardService.findCardById(cardId));
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{cardId}")
-    public ResponseEntity<String> deleteCardById(@PathVariable long cardId){
+    public ResponseEntity<String> deleteCardById(@PathVariable long cardId) {
 
         boolean result = cardService.deleteCardById(cardId);
         if(result){
             return ResponseEntity.ok("card deleted successfully");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{cardId}/reward-way/{rewardWayId}")
+    public ResponseEntity<String> deleteRewardWayInCard(@PathVariable long cardId, @PathVariable long rewardWayId) {
+
+        boolean result = cardService.deleteRewardWayInCard(cardId, rewardWayId);
+        if(result){
+            return ResponseEntity.ok().body("Reward Way in Card deleted successfully");
         }else{
             return ResponseEntity.notFound().build();
         }
