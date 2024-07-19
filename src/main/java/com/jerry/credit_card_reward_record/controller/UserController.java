@@ -1,5 +1,6 @@
 package com.jerry.credit_card_reward_record.controller;
 
+import com.jerry.credit_card_reward_record.model.Card;
 import com.jerry.credit_card_reward_record.model.DTO.UserDTO;
 import com.jerry.credit_card_reward_record.model.User;
 import com.jerry.credit_card_reward_record.service.UserService;
@@ -51,10 +52,10 @@ public class UserController {
 //        }
 
         User userCreated;
-       if(userDTO.getUser_id() == 0){
-           userCreated = userService.saveUser(new User(userDTO.getUser_name(), userDTO.getPassword()));
+       if(userDTO.getUserId() == 0){
+           userCreated = userService.saveUser(new User(userDTO.getUserName(), userDTO.getPassword()));
        }else{
-           userCreated = userService.saveUser(new User(userDTO.getUser_id(), userDTO.getUser_name(), userDTO.getPassword()));
+           userCreated = userService.saveUser(new User(userDTO.getUserId(), userDTO.getUserName(), userDTO.getPassword()));
        }
        if(userCreated != null){
            return ResponseEntity.ok(userCreated);
@@ -63,10 +64,10 @@ public class UserController {
        }
     }
 
-    @PutMapping("/{userId}/card/{cardId}")
-    public ResponseEntity<User> addCardToUser(@PathVariable long userId, @PathVariable long cardId) {
+    @PutMapping("/{userId}/card")
+    public ResponseEntity<User> addCardToUser(@PathVariable long userId, @RequestParam("cardIds") List<Long> cardIds) {
 
-        boolean result = userService.addCardToUser(userId, cardId);
+        boolean result = userService.addCardsToUser(userId, cardIds);
         if(result){
             return ResponseEntity.ok().body(userService.findUserById(userId));
         }else{
@@ -80,6 +81,17 @@ public class UserController {
         boolean result = userService.deleteUser(userId);
         if(result){
             return ResponseEntity.ok("User deleted successfully");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{userId}/recommend")
+    public ResponseEntity<List<Card>> recommendCardsForUserByConsumption(@PathVariable long userId, @RequestParam("consumptionId") long consumptionId) {
+
+        List<Card> cards = userService.recommendCardsForUserByConsumption(userId, consumptionId);
+        if(cards != null){
+            return ResponseEntity.ok(cards);
         }else{
             return ResponseEntity.notFound().build();
         }

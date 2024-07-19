@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 public class CardDTO {
 
-    private long card_id;
+    private long cardId;
     private Bank bank;
-    private String card_name;
+    private String cardName;
 }

@@ -50,10 +50,10 @@ public class ConsumptionController {
 //        }
 
         Consumption consumptionCreate;
-        if(consumptionDTO.getConsumption_id() == 0){
-            consumptionCreate = consumptionService.saveConsumption(new Consumption(consumptionDTO.getConsumption_name()));
+        if(consumptionDTO.getConsumptionId() == 0){
+            consumptionCreate = consumptionService.saveConsumption(new Consumption(consumptionDTO.getConsumptionName()));
         }else{
-            consumptionCreate = consumptionService.saveConsumption(new Consumption(consumptionDTO.getConsumption_id(), consumptionDTO.getConsumption_name()));
+            consumptionCreate = consumptionService.saveConsumption(new Consumption(consumptionDTO.getConsumptionId(), consumptionDTO.getConsumptionName()));
         }
         if(consumptionCreate != null){
             return ResponseEntity.ok(consumptionCreate);

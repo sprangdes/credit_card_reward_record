@@ -64,22 +64,28 @@ public class RewardWayService {
         return result;
     }
 
-    public Boolean addConsumptionToRewardWay(long rewardWayId, long consumptionId) {
+    public Boolean addConsumptionsToRewardWay(long rewardWayId, List<Long> consumptionIds) {
 
         boolean result = false;
         RewardWay rewardWay = findRewardWayById(rewardWayId);
-        Consumption consumption = consumptionRepository.findById(consumptionId).orElse(null);
-        Set<Consumption> consumptions = null;
-        if(rewardWay != null && consumption != null) {
-            consumptions = rewardWay.getConsumptions();
-            consumptions.add(consumption);
-            rewardWay.setConsumptions(consumptions);
-            rewardWayRepository.save(rewardWay);
+        if(rewardWay != null) {
+            Set<Consumption> originalConsumptions = rewardWay.getConsumptions();
+            for(Long consumptionId : consumptionIds) {
+                Consumption newConsumption = consumptionRepository.findById(consumptionId).orElse(null);
+                if(newConsumption != null) {
+                    originalConsumptions.add(newConsumption);
+                    Set<RewardWay> originalRewardWays = newConsumption.getRewardWays();
+                    originalRewardWays.add(rewardWay);
+                    newConsumption.setRewardWays(originalRewardWays);
+                    consumptionRepository.save(newConsumption);
+                }
+            }
             result = true;
-            return result;
-        }else{
+            rewardWay.setConsumptions(originalConsumptions);
+            rewardWayRepository.save(rewardWay);
             return result;
         }
+        return result;
     }
 
     public Boolean deleteConsumptionInRewardWay(long rewardWayId, long consumptionId) {

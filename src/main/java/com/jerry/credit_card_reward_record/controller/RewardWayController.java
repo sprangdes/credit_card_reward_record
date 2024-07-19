@@ -74,10 +74,10 @@ public class RewardWayController {
 //        }
 
         RewardWay rewardWayCreated;
-        if(rewardWayDTO.getReward_way_id() == 0){
-            rewardWayCreated = rewardWayService.saveRewardWay(new RewardWay(rewardWayDTO.getReward_way_name(), rewardWayDTO.getReward_limit(), rewardWayDTO.getReward_rate()));
+        if(rewardWayDTO.getRewardWayId() == 0){
+            rewardWayCreated = rewardWayService.saveRewardWay(new RewardWay(rewardWayDTO.getRewardWayName(), rewardWayDTO.getRewardLimit(), rewardWayDTO.getRewardRate()));
         }else{
-            rewardWayCreated = rewardWayService.saveRewardWay(new RewardWay(rewardWayDTO.getReward_way_id(), rewardWayDTO.getReward_way_name(), rewardWayDTO.getReward_limit(), rewardWayDTO.getReward_rate()));
+            rewardWayCreated = rewardWayService.saveRewardWay(new RewardWay(rewardWayDTO.getRewardWayId(), rewardWayDTO.getRewardWayName(), rewardWayDTO.getRewardLimit(), rewardWayDTO.getRewardRate()));
         }
         if(rewardWayCreated != null){
             return ResponseEntity.ok(rewardWayCreated);
@@ -86,10 +86,10 @@ public class RewardWayController {
         }
     }
 
-    @PutMapping("/{rewardWayId}/consumption/{consumptionId}")
-    public ResponseEntity<RewardWay> addConsumptionToRewardWay(@PathVariable long rewardWayId, @PathVariable long consumptionId) {
+    @PutMapping("/{rewardWayId}/consumption")
+    public ResponseEntity<RewardWay> addConsumptionsToRewardWay(@PathVariable long rewardWayId, @RequestParam("consumptionIds") List<Long> consumptionIds) {
 
-        boolean result = rewardWayService.addConsumptionToRewardWay(rewardWayId, consumptionId);
+        boolean result = rewardWayService.addConsumptionsToRewardWay(rewardWayId, consumptionIds);
         if(result){
             return ResponseEntity.ok().body(rewardWayService.findRewardWayById(rewardWayId));
         }else{

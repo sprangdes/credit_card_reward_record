@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class ConsumptionDTO {
 
-    private long consumption_id;
-    private String consumption_name;
+    private long consumptionId;
+    private String consumptionName;
 }

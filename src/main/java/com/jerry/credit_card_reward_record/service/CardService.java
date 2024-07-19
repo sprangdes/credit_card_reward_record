@@ -64,22 +64,23 @@ public class CardService {
         return result;
     }
 
-    public Boolean addRewardWayToCard(long cardId, long rewardWayId) {
+    public Boolean addRewardWaysToCard(long cardId, List<Long> rewardWayIds) {
 
         boolean result = false;
         Card card = findCardById(cardId);
-        RewardWay rewardWay = rewardWayRepository.findById(rewardWayId).orElse(null);
-        Set<RewardWay> rewardWays = null;
-        if(card != null && rewardWay != null) {
-            rewardWays = card.getRewardWays();
-            rewardWays.add(rewardWay);
-            card.setRewardWays(rewardWays);
-            cardRepository.save(card);
-            result = true;
-            return result;
-        }else{
-            return result;
+        if(card != null) {
+            RewardWay newRewardWay;
+            for(Long rewardWayId : rewardWayIds) {
+                newRewardWay = rewardWayRepository.findById(rewardWayId).orElse(null);
+                if(newRewardWay.getCard() == null){
+                    newRewardWay.setCard(cardRepository.findById(cardId).orElse(null));
+                    rewardWayRepository.save(newRewardWay);
+                    result = true;
+                    return result;
+                }
+            }
         }
+        return result;
     }
 
     public Boolean deleteRewardWayInCard(long cardId, long rewardWayId) {

@@ -1,14 +1,14 @@
 package com.jerry.credit_card_reward_record.service;
 
-import com.jerry.credit_card_reward_record.model.Card;
-import com.jerry.credit_card_reward_record.model.User;
-import com.jerry.credit_card_reward_record.model.UserOwnCard;
+import com.jerry.credit_card_reward_record.model.*;
 import com.jerry.credit_card_reward_record.repository.CardRepository;
+import com.jerry.credit_card_reward_record.repository.ConsumptionRepository;
 import com.jerry.credit_card_reward_record.repository.UserOwnCardRepository;
 import com.jerry.credit_card_reward_record.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserOwnCardRepository userOwnCardRepository;
+
+    @Autowired
+    private ConsumptionRepository consumptionRepository;
 
     public User findUserById(long userId) {
 
@@ -50,22 +53,45 @@ public class UserService {
         return result;
     }
 
-    public Boolean addCardToUser(long userId, long cardId) {
+    public Boolean addCardsToUser(long userId, List<Long> cardIds) {
 
         boolean result = false;
         User user = findUserById(userId);
-        Card card = cardRepository.findById(cardId).orElse(null);
-        Set<Card> userCards = null;
-        if (user != null && card != null) {
-            userOwnCardRepository.save(new UserOwnCard(userId, cardId, 0.0f));
-            userCards = user.getCards();
-            userCards.add(card);
-            user.setCards(userCards);
+        if(user != null){
+            Set<Card> originalCards = user.getCards();
+            for(Long cardId : cardIds){
+                Card newCard = cardRepository.findById(cardId).orElse(null);
+                if(newCard != null){
+                    originalCards.add(newCard);
+                    Set<User> originalUsers = newCard.getUsers();
+                    originalUsers.add(user);
+                    newCard.setUsers(originalUsers);
+                    cardRepository.save(newCard);
+                    userOwnCardRepository.save(new UserOwnCard(userId, cardId, 0.0f));
+                }
+            }
+            user.setCards(originalCards);
             userRepository.save(user);
             result = true;
             return result;
-        }else{
-            return result;
         }
+        return result;
+    }
+
+    public List<Card> recommendCardsForUserByConsumption(long userId, long consumptionId) {
+
+        Set<Card> userCards = userRepository.findById(userId).orElse(null).getCards();
+        Consumption consumption = consumptionRepository.findById(consumptionId).orElse(null);
+        List<Card> recommendedCards = new ArrayList<>();
+        for(Card userCard : userCards){
+            Set<RewardWay> rewardWays = userCard.getRewardWays();
+            for(RewardWay rewardWay : rewardWays){
+                Set<Consumption> consumptions = rewardWay.getConsumptions();
+                if(consumptions.contains(consumption)){
+                    recommendedCards.add(userCard);
+                }
+            }
+        }
+        return recommendedCards;
     }
 }

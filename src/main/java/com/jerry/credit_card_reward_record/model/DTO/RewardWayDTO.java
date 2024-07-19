@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class RewardWayDTO {
 
-    private long reward_way_id;
-    private String reward_way_name;
-    private int reward_limit;
-    private float reward_rate;
+    private long rewardWayId;
+    private String rewardWayName;
+    private int rewardLimit;
+    private float rewardRate;
 }

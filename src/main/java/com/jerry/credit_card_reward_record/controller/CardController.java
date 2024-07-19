@@ -76,10 +76,10 @@ public class CardController {
 //        }
 
         Card cardCreated;
-        if(cardDTO.getCard_id() == 0){
-            cardCreated = cardService.saveCard(new Card(cardDTO.getBank(), cardDTO.getCard_name()));
+        if(cardDTO.getCardId() == 0){
+            cardCreated = cardService.saveCard(new Card(cardDTO.getBank(), cardDTO.getCardName()));
         }else{
-            cardCreated = cardService.saveCard(new Card(cardDTO.getCard_id(), cardDTO.getBank(), cardDTO.getCard_name()));
+            cardCreated = cardService.saveCard(new Card(cardDTO.getCardId(), cardDTO.getBank(), cardDTO.getCardName()));
         }
         if(cardCreated != null){
             return ResponseEntity.ok(cardCreated);
@@ -88,10 +88,10 @@ public class CardController {
         }
     }
 
-    @PutMapping("/{cardId}/reward-way/{rewardWayId}")
-    public ResponseEntity<Card> addRewardWayToCard(@PathVariable long cardId, @PathVariable long rewardWayId) {
+    @PutMapping("/{cardId}/reward-way")
+    public ResponseEntity<Card> addRewardWaysToCard(@PathVariable long cardId, @RequestParam("rewardWayIds") List<Long> rewardWayIds) {
 
-        boolean result = cardService.addRewardWayToCard(cardId, rewardWayId);
+        boolean result = cardService.addRewardWaysToCard(cardId, rewardWayIds);
         if(result){
             return ResponseEntity.ok().body(cardService.findCardById(cardId));
         }else{
