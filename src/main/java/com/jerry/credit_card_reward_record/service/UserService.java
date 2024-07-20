@@ -1,10 +1,7 @@
 package com.jerry.credit_card_reward_record.service;
 
 import com.jerry.credit_card_reward_record.model.*;
-import com.jerry.credit_card_reward_record.repository.CardRepository;
-import com.jerry.credit_card_reward_record.repository.ConsumptionRepository;
-import com.jerry.credit_card_reward_record.repository.UserOwnCardRepository;
-import com.jerry.credit_card_reward_record.repository.UserRepository;
+import com.jerry.credit_card_reward_record.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +23,9 @@ public class UserService {
 
     @Autowired
     private ConsumptionRepository consumptionRepository;
+
+    @Autowired
+    private UserAccumulatedRewardService userAccumulatedRewardService;
 
     public User findUserById(long userId) {
 
@@ -67,7 +67,8 @@ public class UserService {
                     originalUsers.add(user);
                     newCard.setUsers(originalUsers);
                     cardRepository.save(newCard);
-                    userOwnCardRepository.save(new UserOwnCard(userId, cardId, 0.0f));
+                    userOwnCardRepository.save(new UserOwnCard(userId, cardId));
+                    userAccumulatedRewardService.initializeUserAccumulatedReward(user, newCard);
                 }
             }
             user.setCards(originalCards);

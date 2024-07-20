@@ -75,10 +75,10 @@ public class CardService {
                 if(newRewardWay.getCard() == null){
                     newRewardWay.setCard(cardRepository.findById(cardId).orElse(null));
                     rewardWayRepository.save(newRewardWay);
-                    result = true;
-                    return result;
                 }
             }
+            result = true;
+            return result;
         }
         return result;
     }
@@ -98,5 +98,13 @@ public class CardService {
         }else{
             return result;
         }
+    }
+
+    public Boolean isRewardWayInCard(long cardId, long rewardWayId) {
+
+        Card card = findCardById(cardId);
+        RewardWay rewardWay = rewardWayRepository.findById(rewardWayId).orElse(null);
+        Set<RewardWay> rewardWays = card.getRewardWays();
+        return rewardWay != null && rewardWays.contains(rewardWay);
     }
 }

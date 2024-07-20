@@ -18,14 +18,11 @@ public class UserOwnCard {
 
     private long cardId;
 
-    private float accumulatedReward;
-
     public UserOwnCard() {
     }
 
-    public UserOwnCard(long userId, long cardId, float accumulatedReward) {
+    public UserOwnCard(long userId, long cardId) {
         this.userId = userId;
         this.cardId = cardId;
-        this.accumulatedReward = accumulatedReward;
     }
 }
