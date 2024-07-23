@@ -57,9 +57,9 @@ http://localhost:8080/api/v1/
 - [Reward Way](docs/reward_way_api.md)
 - [Consumption](docs/consumption_api.md)
 
-#### 資料庫
+### 資料庫
 
-##### User
+#### User
 ```json
 {
   "userId": 0,
@@ -98,8 +98,7 @@ http://localhost:8080/api/v1/
   ]
 }
 ```
-
-##### Bank
+#### Bank
 ```json
 {
   "bankId": 0,
@@ -109,8 +108,7 @@ http://localhost:8080/api/v1/
   ]
 }
 ```
-
-##### Card
+#### Card
 ```json
 {
   "cardId": 0,
@@ -142,8 +140,7 @@ http://localhost:8080/api/v1/
   ]
 }
 ```
-
-##### RewardWay
+#### RewardWay
 ```json
 {
   "rewardWayId": 0,
@@ -162,8 +159,7 @@ http://localhost:8080/api/v1/
   ]
 }
 ```
-
-##### Consumption
+#### Consumption
 ```json
 {
   "consumptionId": 0,
