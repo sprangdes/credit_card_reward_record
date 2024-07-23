@@ -55,6 +55,13 @@ mvn spring-boot:run
 http://localhost:8080/api/v1/
 
 ### API路徑與方法
+
+- [User](docs/user_api.md)
+- [Bank](docs/bank_api.md)
+- [Card](docs/card_api.md)
+- [Reward Way](docs/reward_way_api.md)
+- [Consumption](docs/consumption_api.md)
+- 
 #### 資料庫
 
 ##### User
@@ -171,12 +178,6 @@ http://localhost:8080/api/v1/
   ]
 }
 ```
-
-- [User](docs/user_api.md)
-- [Bank](docs/bank_api.md)
-- [Card](docs/card_api.md)
-- [Reward Way](docs/reward_way_api.md)
-- [Consumption](docs/consumption_api.md)
 
 ### 錯誤處理
 | 錯誤代碼 | 描述                    |
