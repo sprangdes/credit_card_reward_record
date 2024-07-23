@@ -32,7 +32,7 @@
 ```bash  
 cp src/main/resources/application.properties.example src/main/resources/application.properties
 ```
-application.properties文件中設置數據庫連接：
+application.properties文件中設置資料庫連接：
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/credit_card_reward_record
 spring.datasource.username=your_username # your username
@@ -41,6 +41,10 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+```
+MySQL WorkBench中建立資料庫：
+```sql
+CREATE DATABASE credit_card_reward_record;
 ```
 
 ## 使用說明
