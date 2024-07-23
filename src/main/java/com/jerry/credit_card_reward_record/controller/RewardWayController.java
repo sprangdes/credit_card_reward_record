@@ -98,7 +98,7 @@ public class RewardWayController {
 
     @PutMapping("/{rewardWayId}/consumption")
     @Operation(summary = "新增多個消費通路至指定回饋方式", description = "提供rewardWayId及consumptionIds以將多個消費通路新增至指定回饋方式", responses = {
-            @ApiResponse(responseCode = "201", description = "回傳List<RewardWay>"),
+            @ApiResponse(responseCode = "201", description = "回傳RewardWay"),
             @ApiResponse(responseCode = "404", description = "page not found")})
     public ResponseEntity<RewardWay> addConsumptionsToRewardWay(@PathVariable long rewardWayId, @RequestParam("consumptionIds") List<Long> consumptionIds) {
 
