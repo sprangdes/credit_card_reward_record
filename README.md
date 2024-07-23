@@ -2,9 +2,23 @@
 提供有關信用卡資訊的CRUD操作，並可將信用卡和使用者綁定以提供更多的操作，如：提供適合的刷卡建議或可得到最高回饋的刷卡方式。
 
 ## 目錄
+- [專案簡介](#專案簡介)
 - [安裝與設定](#安裝與設定)
 - [使用說明](#使用說明)
+- [API路徑與方法](#API路徑與方法)
+  - [User](#User)
+  - [Bank](#Bank)
+  - [Card](#Card)
+  - [RewardWay](#RewardWay)
+  - [Consumption](#Consumption)
 - [錯誤處理](#錯誤處理)
+
+## 專案簡介
+信用卡回饋記錄API旨在幫助使用者管理信用卡資訊、消費回饋方式，並提供最佳的刷卡建議。主要功能包括：
+- 使用者管理（新增、查詢、更新、刪除）
+- 信用卡管理（新增、查詢、更新、刪除）
+- 消費回饋管理（新增、查詢、更新、刪除）
+- 提供刷卡建議及最高回饋的信用卡
 
 ## 安裝與設定
 ### 先決條件
@@ -21,6 +35,16 @@
 複製範例配置檔案並進行修改：
 ```bash  
 cp src/main/resources/application.properties.example src/main/resources/application.properties
+```
+application.properties文件中設置數據庫連接：
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/credit_card_reward_record
+spring.datasource.username=your_username # your username
+spring.datasource.password=your_password # your password
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ```
 
 ## 使用說明
