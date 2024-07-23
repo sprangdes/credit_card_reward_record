@@ -6,11 +6,6 @@
 - [安裝與設定](#安裝與設定)
 - [使用說明](#使用說明)
 - [API路徑與方法](#API路徑與方法)
-  - [User](#User)
-  - [Bank](#Bank)
-  - [Card](#Card)
-  - [RewardWay](#RewardWay)
-  - [Consumption](#Consumption)
 - [錯誤處理](#錯誤處理)
 
 ## 專案簡介
@@ -61,7 +56,7 @@ http://localhost:8080/api/v1/
 - [Card](docs/card_api.md)
 - [Reward Way](docs/reward_way_api.md)
 - [Consumption](docs/consumption_api.md)
-- 
+
 #### 資料庫
 
 ##### User
