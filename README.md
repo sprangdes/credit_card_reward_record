@@ -48,8 +48,8 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ```bash  
 mvn spring-boot:run
 ```
-API：http://localhost:8080/api/v1/
-Swagger：http://localhost:8080/swagger-ui/index.html#/
+- API：http://localhost:8080/api/v1/
+- Swagger：http://localhost:8080/swagger-ui/index.html#/
 
 ### API路徑與方法
 
