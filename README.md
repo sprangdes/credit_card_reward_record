@@ -19,6 +19,7 @@
 ### 先決條件
 - Java 17
 - MySQL 8.4.0
+- MySQL WorkBench
 - Maven 3.6+
 
 ### 安裝步驟
@@ -47,7 +48,8 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ```bash  
 mvn spring-boot:run
 ```
-http://localhost:8080/api/v1/
+API：http://localhost:8080/api/v1/
+Swagger：http://localhost:8080/swagger-ui/index.html#/
 
 ### API路徑與方法
 
